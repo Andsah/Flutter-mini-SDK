@@ -25,6 +25,6 @@ class ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     // maybe some stuff here who knows
 
-    return Container(child: Column(children: []));
+    return Container(child: Column(children: [Text("This is a product page")]));
   }
 }
