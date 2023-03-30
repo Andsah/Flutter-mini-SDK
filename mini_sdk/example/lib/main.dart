@@ -62,6 +62,30 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<String> testList = [
+    "xs",
+    "s",
+    "m",
+    "l",
+    "xl",
+    "2xl",
+    "3xl",
+    "4xl",
+    "5xl",
+    "6xl"
+  ];
+  List<String> list2 = [
+    "https://cdn.discordapp.com/attachments/807179568754458684/1030946124778971136/Julvante_vrist_-_Stitch_Fiddle.png",
+    "https://cdn.discordapp.com/attachments/807179568754458684/1030946424659128380/Julvante_F_-_Stitch_Fiddle.png",
+    "https://cdn.discordapp.com/attachments/807179568754458684/1029049947590504568/DungeonQuest_UI_2_20221010051638.png",
+    "https://cdn.discordapp.com/attachments/807179568754458684/1024122784873467914/Project_20220927025801.png",
+    "https://cdn.discordapp.com/attachments/807179568754458684/1022632032167268352/Project_20220922091021.png",
+    "https://cdn.discordapp.com/attachments/807179568754458684/1007392211446550528/yarnexample.jpeg",
+    "https://cdn.discordapp.com/attachments/807179568754458684/1007358931728863282/20220722_164610.jpg",
+    "https://cdn.discordapp.com/attachments/807179568754458684/996851328217251952/unknown.png",
+    "https://cdn.discordapp.com/attachments/807179568754458684/996849837834260610/unknown.png"
+  ];
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -77,23 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -103,7 +111,11 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            ProductPage()
+            ProductPage(
+              productName: "Test Product 1",
+              sizeList: testList,
+              colourList: list2,
+            )
           ],
         ),
       ),
@@ -111,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
