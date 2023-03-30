@@ -41,7 +41,7 @@ class ProductPageState extends State<ProductPage> {
     // maybe some stuff here who knows
 
     return Container(
-        child: Row(children: [
+        child: Column(children: [
       Container(
         decoration: BoxDecoration(
             color: Colors.grey, borderRadius: BorderRadius.circular(20.0)),
