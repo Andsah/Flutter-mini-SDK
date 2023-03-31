@@ -75,15 +75,17 @@ class _MyHomePageState extends State<MyHomePage> {
     "6xl"
   ];
   List<String> list2 = [
-    "https://cdn.discordapp.com/attachments/807179568754458684/1030946124778971136/Julvante_vrist_-_Stitch_Fiddle.png",
-    "https://cdn.discordapp.com/attachments/807179568754458684/1030946424659128380/Julvante_F_-_Stitch_Fiddle.png",
-    "https://cdn.discordapp.com/attachments/807179568754458684/1029049947590504568/DungeonQuest_UI_2_20221010051638.png",
-    "https://cdn.discordapp.com/attachments/807179568754458684/1024122784873467914/Project_20220927025801.png",
-    "https://cdn.discordapp.com/attachments/807179568754458684/1022632032167268352/Project_20220922091021.png",
-    "https://cdn.discordapp.com/attachments/807179568754458684/1007392211446550528/yarnexample.jpeg",
-    "https://cdn.discordapp.com/attachments/807179568754458684/1007358931728863282/20220722_164610.jpg",
-    "https://cdn.discordapp.com/attachments/807179568754458684/996851328217251952/unknown.png",
-    "https://cdn.discordapp.com/attachments/807179568754458684/996849837834260610/unknown.png"
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/6/hobbii-amigo-xl-02-700xauto.jpg",
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-03-700xauto.jpg",
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-07-700xauto.jpg",
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-09-700xauto.jpg",
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-27-700xauto.jpg",
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-28-700xauto.jpg",
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-41-700xauto.jpg",
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-38-700xauto.jpg",
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-40-700xauto.jpg",
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-60-700xauto.jpg",
+    "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-24-700xauto.jpg"
   ];
 
   @override
