@@ -69,6 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
     "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-37-700xauto.jpg",
   ];
 
+  String testid = "init";
+  String testname = "init";
+  int testquantity = 0;
+  int testcolour = 0;
+  String testsize = "init";
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -93,8 +99,17 @@ class _MyHomePageState extends State<MyHomePage> {
               productName: "Hobbii Amigo XL",
               sizeList: testList,
               colourList: list2,
-              callback: () {},
-            )
+              callback: (id, name, quantity, colour, size) {
+                setState(() {
+                  testid = id;
+                  testname = name;
+                  testquantity = quantity;
+                  testcolour = colour;
+                  testsize = size;
+                });
+              },
+            ),
+            Text("$testid, $testname, $testquantity, $testcolour, $testsize.")
           ],
         ),
       ),

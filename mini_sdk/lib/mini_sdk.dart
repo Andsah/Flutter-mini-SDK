@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'src/cart_button.dart';
 import 'src/quantity_bar.dart';
 import 'src/carousel.dart';
 
@@ -34,12 +35,20 @@ class ProductPageState extends State<ProductPage> {
   // We need some variables to keep track of selections on the page
   String selectedSize = "";
   int selectedColour = 0;
+  int quantity = 1;
   bool colourListExpanded = false;
 
   late List<Widget> fullColourList;
   late List<Widget> previewColourList;
 
-  QuantityBar qBar = const QuantityBar();
+  void quantityCallback(int q) {
+    quantity = q;
+  }
+
+  void cartCallback() {
+    widget.callback(widget.productId, widget.productName, quantity,
+        selectedColour, selectedSize);
+  }
 
   void closeColourList() {
     setState(() {
@@ -230,7 +239,18 @@ class ProductPageState extends State<ProductPage> {
             height: 2,
             color: Colors.grey.shade300,
           ),
-          qBar // our custom way to set quantity
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  QuantityBar(callback: quantityCallback),
+                  CartButton(callback: cartCallback)
+                ],
+              ),
+            ),
+          ) // our custom way to set quantity
         ]));
   }
 }
