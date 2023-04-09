@@ -23,8 +23,8 @@ class ProductPage extends StatefulWidget {
   final String productId;
   final String productName;
   final List<String> sizeList;
-  final List<String>
-      colourList; // replace with final Map<String,List<String>> colourList;
+  //final List<String> colourList;
+  final Map<String, List<String>> colourList;
   final Function callback;
 
   @override
@@ -93,18 +93,21 @@ class ProductPageState extends State<ProductPage> {
 
     fullColourList = List.generate(widget.colourList.length, (index) {
       return Stack(
+        alignment: Alignment.bottomCenter,
         children: [
           Container(
             decoration: BoxDecoration(
                 border: Border.all(
                     color: selectedColour == index
-                        ? Colors.grey.shade400 // make customizable x
+                        ? Colors.grey.shade400
                         : Colors.grey.shade300,
                     width: selectedColour == index ? 1.5 : 1),
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
                     fit: BoxFit.fitWidth,
-                    image: NetworkImage(widget.colourList[index], scale: 1))),
+                    image: NetworkImage(
+                        widget.colourList.values.elementAt(index)[0],
+                        scale: 1))),
           ),
           Positioned.fill(
             child: Material(
@@ -118,11 +121,22 @@ class ProductPageState extends State<ProductPage> {
                     }
                     setState(() {
                       selectedColour = index;
-                      // maybe more when there is a product class
                     });
                   }),
             ),
-          )
+          ),
+          Container(
+            height: 16,
+            alignment: Alignment.bottomCenter,
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(15)),
+                backgroundBlendMode: BlendMode.multiply,
+                color: Colors.grey.withAlpha(200)),
+            child: Text(widget.colourList.keys.elementAt(index),
+                style: GoogleFonts.raleway(color: Colors.white)),
+          ),
         ],
       );
     });
@@ -134,9 +148,10 @@ class ProductPageState extends State<ProductPage> {
             borderRadius: BorderRadius.circular(15),
             image: DecorationImage(
                 colorFilter: ColorFilter.mode(
-                    Colors.grey.withAlpha(200), BlendMode.darken),
+                    Colors.grey.withAlpha(200), BlendMode.multiply),
                 fit: BoxFit.fitWidth,
-                image: NetworkImage(widget.colourList[7], scale: 1))),
+                image: NetworkImage(widget.colourList.values.elementAt(7)[0],
+                    scale: 1))),
         child: IconButton(
           onPressed: () {
             openColourList();
@@ -168,7 +183,7 @@ class ProductPageState extends State<ProductPage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
-                widget.colourList[selectedColour],
+                widget.colourList.values.elementAt(selectedColour)[0],
                 scale: 0.1,
                 height: 250,
               ),
