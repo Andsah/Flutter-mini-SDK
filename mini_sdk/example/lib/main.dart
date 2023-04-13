@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.brown,
+        primarySwatch: Colors.indigo,
       ),
       home: const MyHomePage(title: 'Hobbii Amigo XL'),
     );
@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String testid = "init";
   String testname = "init";
   int testquantity = 0;
-  int testcolour = 0;
+  String testcolour = "init";
   String testsize = "init";
 
   @override
@@ -134,27 +134,30 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ProductPage(
-              price: 19.99,
-              productId: "ag2FGt390Fk4",
-              productName: "Hobbii Amigo XL",
-              sizeList: testList,
-              colourList: list2,
-              callback: (id, name, quantity, colour, size) {
-                setState(() {
-                  testid = id;
-                  testname = name;
-                  testquantity = quantity;
-                  testcolour = colour;
-                  testsize = size;
-                });
-              },
-            ),
-            Text("$testid, $testname, $testquantity, $testcolour, $testsize.")
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ProductPage(
+                price: 19.99,
+                productId: "ag2FGt390Fk4",
+                productName: "Hobbii Amigo XL",
+                sizeList: testList,
+                colourList: list2,
+                callback: (id, name, quantity, colour, size) {
+                  setState(() {
+                    testid = id;
+                    testname = name;
+                    testquantity = quantity;
+                    testcolour = colour;
+                    testsize = size;
+                  });
+                },
+                accentColor: Colors.indigo,
+              ),
+              Text("$testid, $testname, $testquantity, $testcolour, $testsize.")
+            ],
+          ),
         ),
       ),
     );

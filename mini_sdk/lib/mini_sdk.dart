@@ -17,7 +17,8 @@ class ProductPage extends StatefulWidget {
       required this.productName,
       required this.sizeList,
       required this.colourList,
-      required this.callback});
+      required this.callback,
+      this.accentColor = Colors.grey});
 
   final double price;
   final String productId;
@@ -27,12 +28,16 @@ class ProductPage extends StatefulWidget {
   final Map<String, List<String>> colourList;
   final Function callback;
 
+  final Color accentColor;
+
   @override
   State<StatefulWidget> createState() => ProductPageState();
 }
 
 class ProductPageState extends State<ProductPage> {
   // We need some variables to keep track of selections on the page
+  final _formKey = GlobalKey<FormState>();
+
   String selectedSize = "";
   int selectedColour = 0;
   int quantity = 1;
@@ -46,8 +51,10 @@ class ProductPageState extends State<ProductPage> {
   }
 
   void cartCallback() {
-    widget.callback(widget.productId, widget.productName, quantity,
-        selectedColour, selectedSize);
+    if (_formKey.currentState!.validate()) {
+      widget.callback(widget.productId, widget.productName, quantity,
+          widget.colourList.keys.elementAt(selectedColour), selectedSize);
+    }
   }
 
   void closeColourList() {
@@ -88,7 +95,16 @@ class ProductPageState extends State<ProductPage> {
     List<DropdownMenuItem> sizeMenuList = [];
 
     for (String element in widget.sizeList) {
-      sizeMenuList.add(DropdownMenuItem(value: element, child: Text(element)));
+      sizeMenuList.add(DropdownMenuItem(
+          value: element,
+          child: Container(
+            decoration: BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                borderRadius: BorderRadius.circular(40)),
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
+            child: Text(element),
+          )));
     }
 
     fullColourList = List.generate(widget.colourList.length, (index) {
@@ -99,7 +115,7 @@ class ProductPageState extends State<ProductPage> {
             decoration: BoxDecoration(
                 border: Border.all(
                     color: selectedColour == index
-                        ? Colors.grey.shade400
+                        ? widget.accentColor
                         : Colors.grey.shade300,
                     width: selectedColour == index ? 1.5 : 1),
                 borderRadius: BorderRadius.circular(15),
@@ -133,7 +149,9 @@ class ProductPageState extends State<ProductPage> {
                     bottomLeft: Radius.circular(15),
                     bottomRight: Radius.circular(15)),
                 backgroundBlendMode: BlendMode.multiply,
-                color: Colors.grey.withAlpha(200)),
+                color: selectedColour == index
+                    ? widget.accentColor.withAlpha(200)
+                    : Colors.grey.withAlpha(200)),
             child: Text(widget.colourList.keys.elementAt(index),
                 style: GoogleFonts.raleway(color: Colors.white)),
           ),
@@ -165,107 +183,138 @@ class ProductPageState extends State<ProductPage> {
       ));
     }
 
-    return Container(
-        margin: const EdgeInsets.all(10),
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 24, top: 8),
-            child: Text(
-              widget.productName,
-              style: GoogleFonts.raleway(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.grey),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                widget.colourList.values.elementAt(selectedColour)[0],
-                scale: 0.1,
-                height: 250,
+    return Form(
+      key: _formKey,
+      child: Container(
+          margin: const EdgeInsets.all(10),
+          child: Column(children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 24, top: 8),
+              child: Text(
+                widget.productName,
+                style: GoogleFonts.raleway(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.grey),
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: 80,
-                margin: const EdgeInsets.only(top: 16, bottom: 16),
-                padding: const EdgeInsets.only(left: 4, right: 4),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.transparent,
-                    border:
-                        Border.all(color: Colors.grey.shade300, width: 1.5)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                      value: selectedSize != "" ? selectedSize : null,
-                      items: sizeMenuList,
-                      elevation: 0,
-                      alignment: Alignment.center,
-                      dropdownColor: Colors.grey.shade200.withAlpha(200),
-                      borderRadius: BorderRadius.circular(20),
-                      style:
-                          GoogleFonts.raleway(color: Colors.grey, fontSize: 16),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedSize = value;
-                        });
-                      }),
+            Container(
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  widget.colourList.values.elementAt(selectedColour)[0],
+                  scale: 0.1,
+                  height: 250,
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 16, bottom: 16),
-                child: Text(
-                  '${widget.price}', // let user set formatting options like currency sign etc.
-                  style: GoogleFonts.sourceCodePro(
-                      color: Colors.grey, fontSize: 22),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 12, top: 16, bottom: 16),
+                  child: Text(
+                    "Price:",
+                    style:
+                        GoogleFonts.raleway(color: Colors.grey, fontSize: 22),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 16, right: 12),
+                  child: Text(
+                    '${widget.price}', // let user set formatting options like currency sign etc.
+                    style: GoogleFonts.sourceCodePro(
+                        color: Colors.grey, fontSize: 22),
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              margin:
+                  const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
+              padding: const EdgeInsets.only(left: 4, right: 4),
+              child: DropdownButtonFormField(
+                icon: Icon(
+                  Icons.expand_more_rounded,
+                  color: Colors.grey.shade400,
+                ),
+                value: selectedSize != "" ? selectedSize : null,
+                decoration: InputDecoration(
+                    hintText: "Select size",
+                    hintStyle: GoogleFonts.raleway(color: Colors.grey),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.red.shade400, width: 1.5),
+                        borderRadius: BorderRadius.circular(40)),
+                    errorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.5),
+                        borderRadius: BorderRadius.circular(40)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.grey.shade300, width: 1.5),
+                        borderRadius: BorderRadius.circular(40)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.grey.shade300, width: 1.5),
+                        borderRadius: BorderRadius.circular(40))),
+                items: sizeMenuList,
+                validator: (value) => value == null ? 'Select a size' : null,
+                elevation: 0,
+                alignment: Alignment.center,
+                dropdownColor: Colors.grey.shade300.withAlpha(200),
+                borderRadius: BorderRadius.circular(40),
+                style: GoogleFonts.raleway(color: Colors.grey, fontSize: 16),
+                onChanged: (value) {
+                  setState(() {
+                    selectedSize = value;
+                  });
+                },
+                selectedItemBuilder: (context) {
+                  return widget.sizeList.map<Widget>((e) {
+                    return Text(e);
+                  }).toList();
+                },
+              ),
+            ), // also make optional
+
+            Container(
+                margin: const EdgeInsets.all(10),
+                child: GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                    childAspectRatio: 1,
+                    children: fullColourList.length > 8
+                        ? previewColourList
+                        : fullColourList)),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: IntrinsicHeight(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    QuantityBar(callback: quantityCallback),
+                    CartButton(callback: cartCallback)
+                  ],
                 ),
               ),
-            ],
-          ), // also make optional
-          Divider(
-            indent: 10,
-            endIndent: 10,
-            thickness: 2,
-            height: 2,
-            color: Colors.grey.shade300,
-          ),
-          Container(
-              margin: const EdgeInsets.all(10),
-              child: GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                  childAspectRatio: 1,
-                  children: fullColourList.length > 8
-                      ? previewColourList
-                      : fullColourList)),
-          Divider(
-            indent: 10,
-            endIndent: 10,
-            thickness: 2,
-            height: 2,
-            color: Colors.grey.shade300,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  QuantityBar(callback: quantityCallback),
-                  CartButton(callback: cartCallback)
-                ],
-              ),
-            ),
-          ) // our custom way to set quantity
-        ]));
+            ) // our custom way to set quantity
+          ])),
+    );
   }
 }
+
+/*
+Divider(
+  indent: 10,
+  endIndent: 10,
+  thickness: 2,
+  height: 2,
+  color: Colors.grey.shade300,
+), 
+*/
