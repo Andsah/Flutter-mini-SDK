@@ -45,6 +45,8 @@ class ProductPageState extends State<ProductPage> {
 
   late List<Widget> fullColourList;
   late List<Widget> previewColourList;
+  Map<String, List<Widget>> carouselList = {};
+  late Carousel productImages;
 
   void quantityCallback(int q) {
     quantity = q;
@@ -107,6 +109,21 @@ class ProductPageState extends State<ProductPage> {
           )));
     }
 
+    for (String colour in widget.colourList.keys) {
+      carouselList[colour] =
+          List.generate(widget.colourList[colour]!.length, (index) {
+        return Image.network(
+            // workshop the size make it fit width
+            scale: 0.1,
+            height: 390,
+            widget.colourList[colour]![index]);
+      });
+    }
+
+    productImages = Carousel(
+        memberList: carouselList[widget.colourList.keys
+            .elementAt(selectedColour)]!); // initialize the carousels list
+
     fullColourList = List.generate(widget.colourList.length, (index) {
       return Stack(
         alignment: Alignment.bottomCenter,
@@ -137,6 +154,9 @@ class ProductPageState extends State<ProductPage> {
                     }
                     setState(() {
                       selectedColour = index;
+                      productImages = Carousel(
+                          memberList: carouselList[
+                              widget.colourList.keys.elementAt(index)]!);
                     });
                   }),
             ),
@@ -198,18 +218,7 @@ class ProductPageState extends State<ProductPage> {
                     color: Colors.grey),
               ),
             ),
-            Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(
-                  widget.colourList.values.elementAt(selectedColour)[0],
-                  scale: 0.1,
-                  height: 250,
-                ),
-              ),
-            ),
+            productImages, // THE CAROUSEL ITSELF MUY IMPORTANTE!
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -317,4 +326,17 @@ Divider(
   height: 2,
   color: Colors.grey.shade300,
 ), 
+
+Container(
+  decoration:
+  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Image.network(
+        widget.colourList.values.elementAt(selectedColour)[0],
+        scale: 0.1,
+        height: 250,
+      ),
+    ),
+  )
 */

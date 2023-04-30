@@ -46,7 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   Map<String, List<String>> list2 = {
     "blue": [
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/6/hobbii-amigo-xl-02-700xauto.jpg"
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/6/hobbii-amigo-xl-02-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-33-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-09-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-07-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-41-700xauto.jpg"
     ],
     "green": [
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-03-700xauto.jpg"
