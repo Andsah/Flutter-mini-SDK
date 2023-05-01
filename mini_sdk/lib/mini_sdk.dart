@@ -112,11 +112,19 @@ class ProductPageState extends State<ProductPage> {
     for (String colour in widget.colourList.keys) {
       carouselList[colour] =
           List.generate(widget.colourList[colour]!.length, (index) {
-        return Image.network(
-            // workshop the size make it fit width
-            scale: 0.1,
-            height: 390,
-            widget.colourList[colour]![index]);
+        return Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(color: Colors.grey.shade300, width: 1.5)),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: Image.network(
+                // workshop the size make it fit width
+                scale: 0.1,
+                height: 390,
+                widget.colourList[colour]![index]),
+          ),
+        );
       });
     }
 
@@ -208,34 +216,24 @@ class ProductPageState extends State<ProductPage> {
       child: Container(
           margin: const EdgeInsets.all(10),
           child: Column(children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 24, top: 8),
-              child: Text(
-                widget.productName,
-                style: GoogleFonts.raleway(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey),
-              ),
-            ),
             productImages, // THE CAROUSEL ITSELF MUY IMPORTANTE!
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(left: 12, top: 16, bottom: 16),
+                  margin: const EdgeInsets.only(left: 12, top: 16, bottom: 8),
                   child: Text(
                     "Price:",
                     style:
-                        GoogleFonts.raleway(color: Colors.grey, fontSize: 22),
+                        GoogleFonts.raleway(color: Colors.grey, fontSize: 18),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 16, right: 12),
+                  margin: const EdgeInsets.only(top: 16, bottom: 8, right: 12),
                   child: Text(
                     '${widget.price}', // let user set formatting options like currency sign etc.
                     style: GoogleFonts.sourceCodePro(
-                        color: Colors.grey, fontSize: 22),
+                        color: Colors.grey, fontSize: 18),
                   ),
                 ),
               ],
