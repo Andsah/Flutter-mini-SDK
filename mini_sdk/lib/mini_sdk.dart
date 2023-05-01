@@ -129,6 +129,7 @@ class ProductPageState extends State<ProductPage> {
     }
 
     productImages = Carousel(
+        key: Key(selectedColour.toString()),
         memberList: carouselList[widget.colourList.keys
             .elementAt(selectedColour)]!); // initialize the carousels list
 
@@ -163,6 +164,7 @@ class ProductPageState extends State<ProductPage> {
                     setState(() {
                       selectedColour = index;
                       productImages = Carousel(
+                          key: Key(index.toString()),
                           memberList: carouselList[
                               widget.colourList.keys.elementAt(index)]!);
                     });
@@ -324,17 +326,4 @@ Divider(
   height: 2,
   color: Colors.grey.shade300,
 ), 
-
-Container(
-  decoration:
-  BoxDecoration(borderRadius: BorderRadius.circular(20)),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Image.network(
-        widget.colourList.values.elementAt(selectedColour)[0],
-        scale: 0.1,
-        height: 250,
-      ),
-    ),
-  )
 */
