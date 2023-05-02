@@ -5,12 +5,10 @@ Product page class, fulfills the design pattern found at
 -> https://ui-patterns.com/patterns/Carousel <-
  */
 class Carousel extends StatefulWidget {
-  const Carousel({
-    super.key,
-    required this.memberList,
-  });
+  const Carousel({super.key, required this.memberList, this.width = 390});
 
   final List<Widget> memberList;
+  final double width;
 
   @override
   State<StatefulWidget> createState() => CarouselState();
@@ -18,11 +16,12 @@ class Carousel extends StatefulWidget {
 
 class CarouselState extends State<Carousel>
     with SingleTickerProviderStateMixin {
-  int currentIndex =
-      0; // strangely this seems to be saved between carousels which causes index overflow in the ones with fewer images.
+  int currentIndex = 0;
+
+  double get offsetValue => (widget.width + 10) / widget.width;
 
   late final AnimationController carouselController = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 300))
+      vsync: this, duration: const Duration(milliseconds: 320))
     ..addListener(() {
       setState(() {});
     });
@@ -30,12 +29,12 @@ class CarouselState extends State<Carousel>
   bool timeToReverse = false;
 
   late final Animation<Offset> offsetAnimation =
-      Tween<Offset>(begin: Offset.zero, end: const Offset(1, 0)).animate(
+      Tween<Offset>(begin: Offset.zero, end: Offset(offsetValue, 0)).animate(
           CurvedAnimation(
               parent: carouselController, curve: Curves.fastOutSlowIn));
 
   late final Animation<Offset> resetAnimation =
-      Tween<Offset>(begin: Offset.zero, end: const Offset(-1, 0)).animate(
+      Tween<Offset>(begin: Offset.zero, end: Offset(-offsetValue, 0)).animate(
           CurvedAnimation(
               parent: carouselController, curve: Curves.fastOutSlowIn));
 
@@ -49,102 +48,117 @@ class CarouselState extends State<Carousel>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.maxFinite,
-      child: Column(children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Visibility(
-              visible: carouselController.isAnimating,
-              child: Transform.translate(
-                offset: const Offset(-390, 0),
-                child: SlideTransition(
-                    position: timeToReverse ? resetAnimation : offsetAnimation,
-                    child: widget.memberList[
-                        (currentIndex - 1) % widget.memberList.length]),
-              ),
-            ),
-            Visibility(
-              visible: carouselController.isAnimating,
-              child: Transform.translate(
-                offset: const Offset(390, 0),
-                child: SlideTransition(
-                    position: timeToReverse ? resetAnimation : offsetAnimation,
-                    child: widget.memberList[
-                        (currentIndex + 1) % widget.memberList.length]),
-              ),
-            ),
-            SlideTransition(
-                position: timeToReverse ? resetAnimation : offsetAnimation,
-                child: widget.memberList[currentIndex]),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    carouselController.forward().then((value) {
-                      setState(() {
-                        currentIndex -= 1;
-                        currentIndex = currentIndex % widget.memberList.length;
-                      });
-                    }).then((value) => carouselController.reset());
-                    timeToReverse = false;
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(50),
-                            bottomRight: Radius.circular(50)),
-                        backgroundBlendMode: BlendMode.multiply,
-                        color: Colors.grey.withAlpha(200)),
-                    child: const Icon(
-                      Icons.arrow_back_ios_rounded,
-                      color: Colors.white,
-                      size: 50,
-                    ),
-                  ),
+      width: widget.width + 22,
+      child: ClipRect(
+        child: Column(children: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Visibility(
+                visible: carouselController.isAnimating,
+                child: Transform.translate(
+                  offset: Offset(-widget.width - 10, 0),
+                  child: SlideTransition(
+                      position:
+                          timeToReverse ? resetAnimation : offsetAnimation,
+                      child: widget.memberList[
+                          (currentIndex - 1) % widget.memberList.length]),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    carouselController.forward().then((value) {
-                      setState(() {
-                        currentIndex += 1;
-                        currentIndex = currentIndex % widget.memberList.length;
-                      });
-                    }).then((value) => carouselController.reset());
-                    timeToReverse = true;
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(50),
-                            bottomLeft: Radius.circular(50)),
-                        backgroundBlendMode: BlendMode.multiply,
-                        color: Colors.grey.withAlpha(200)),
-                    child: const Icon(Icons.arrow_forward_ios_rounded,
-                        color: Colors.white, size: 50),
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
-        SizedBox(
-          // wow this one took like 5 min of me brainstorming wow
-          height: 20,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(widget.memberList.length, (index) {
-              return Container(
-                margin: const EdgeInsets.only(top: 4, left: 4, right: 4),
-                child: CircleAvatar(
-                    backgroundColor: Colors.grey.shade400,
-                    radius: index == currentIndex ? 8 : 4),
-              );
-            }),
+              ),
+              Visibility(
+                visible: carouselController.isAnimating,
+                child: Transform.translate(
+                  offset: Offset(widget.width + 10, 0),
+                  child: SlideTransition(
+                      position:
+                          timeToReverse ? resetAnimation : offsetAnimation,
+                      child: widget.memberList[
+                          (currentIndex + 1) % widget.memberList.length]),
+                ),
+              ),
+              SlideTransition(
+                  position: timeToReverse ? resetAnimation : offsetAnimation,
+                  child: widget.memberList[currentIndex]),
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        carouselController.forward().then((value) {
+                          setState(() {
+                            currentIndex -= 1;
+                            currentIndex =
+                                currentIndex % widget.memberList.length;
+                          });
+                        }).then((value) => carouselController.reset());
+                        timeToReverse = false;
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(50),
+                                bottomRight: Radius.circular(50)),
+                            backgroundBlendMode: BlendMode.multiply,
+                            color: Colors.grey.withAlpha(200)),
+                        child: const Padding(
+                          padding: EdgeInsets.only(top: 8, bottom: 8),
+                          child: Icon(
+                            Icons.arrow_back_ios_rounded,
+                            color: Colors.white,
+                            size: 50,
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        carouselController.forward().then((value) {
+                          setState(() {
+                            currentIndex += 1;
+                            currentIndex =
+                                currentIndex % widget.memberList.length;
+                          });
+                        }).then((value) => carouselController.reset());
+                        timeToReverse = true;
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(50),
+                                bottomLeft: Radius.circular(50)),
+                            backgroundBlendMode: BlendMode.multiply,
+                            color: Colors.grey.withAlpha(200)),
+                        child: const Padding(
+                          padding: EdgeInsets.only(top: 8, bottom: 8),
+                          child: Icon(Icons.arrow_forward_ios_rounded,
+                              color: Colors.white, size: 50),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
-        )
-      ]),
+          SizedBox(
+            // wow this one took like 5 min of me brainstorming wow
+            height: 20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(widget.memberList.length, (index) {
+                return Container(
+                  margin: const EdgeInsets.only(top: 4, left: 4, right: 4),
+                  child: CircleAvatar(
+                      backgroundColor: Colors.grey.shade400,
+                      radius: index == currentIndex ? 8 : 4),
+                );
+              }),
+            ),
+          )
+        ]),
+      ),
     );
   }
 }

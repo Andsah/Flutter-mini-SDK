@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_sdk/mini_sdk.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,10 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Map<String, List<String>> list2 = {
     "blue": [
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-19-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-33-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-25-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-28-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-41-700xauto.jpg"
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
     ],
     "green": [
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-03-700xauto.jpg"
@@ -144,8 +145,19 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ProductPage(
                 price: 19.99,
+                priceText: "\$19.99",
                 productId: "ag2FGt390Fk4",
                 productName: "Hobbii Amigo XL",
+                productDescription:
+                    """Amigo XL är ett av dessa ljuvligt fantastiska garner som är så enkla att arbeta med, att de flyger fram över stickorna och virknålen. Det är mjukt och behagligt och är producerat i 100% HB akryl i en riktigt god kvalité i ett stort urval av färger.
+                            
+HB står för High-bulk. Det är ett garn som bearbetas med ånga och press som får fibrerna att krympa lite och locka sig så att det blir fylligare. Resultatet är ett lätt och mjukt garn, som både är behagligt att arbeta med och att klä sig i.
+                            
+Amigo XL är dubbelt så tjockt som Amigo, och kan därför stickas eller virkas på 5 mm. Här ser du snabbt resultat. Det mjuka garnet är perfekt till många kreativa, färgrika projekt. Det kliar absolut inte och är därför skönt till filtar, tröjor, mössor, halsdukar m.m. Det luftiga garnet håller dig varm och blir inte för tungt.
+                           
+Hele Amigo-serien utmärker sig genom sin lätta volym, den enhetliga strukturen och den goda hållbarheten. Det kan maskintvättas på 30°C, perfekt till vardagsbruk. Färg och form håller sig tvätt efter tvätt. Tåler du inte ull, eller vill du av andra orsaker avstå animaliska fibrer, då kan du med fördel ersätta ull med Amigo och få ett mjukt och härligt resultat.
+
+Garnet är OEKO-TEX®-certifierat (nr. 2076-311). Se mer information om certifieringen på """,
                 sizeList: testList,
                 colourList: list2,
                 callback: (id, name, quantity, colour, size) {
@@ -159,7 +171,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 accentColor: Colors.indigo,
               ),
-              Text("$testid, $testname, $testquantity, $testcolour, $testsize.")
+              Container(
+                  margin: EdgeInsets.only(top: 10, bottom: 20),
+                  child: Text(
+                    "$testid, $testname, $testquantity, $testcolour, $testsize.",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.sourceCodePro(fontSize: 18),
+                  ))
             ],
           ),
         ),
