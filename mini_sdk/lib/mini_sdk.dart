@@ -20,7 +20,10 @@ class ProductPage extends StatefulWidget {
       required this.sizeList,
       required this.colourList,
       required this.callback,
-      this.accentColor = Colors.grey});
+      this.accentColor = Colors.grey,
+      this.sizeHint = "Select size",
+      this.seeMore = "see more",
+      this.seeLess = "see less"});
 
   final double price;
   final String priceText;
@@ -33,6 +36,9 @@ class ProductPage extends StatefulWidget {
   final Function callback;
 
   final Color accentColor;
+  final String sizeHint;
+  final String seeMore;
+  final String seeLess;
 
   @override
   State<StatefulWidget> createState() => ProductPageState();
@@ -102,6 +108,9 @@ class ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     List<DropdownMenuItem> sizeMenuList = [];
 
+    /*
+    Populating the dropdown menu for the size options.
+     */
     for (String element in widget.sizeList) {
       sizeMenuList.add(DropdownMenuItem(
           value: element,
@@ -115,6 +124,9 @@ class ProductPageState extends State<ProductPage> {
           )));
     }
 
+    /*
+    Populating a carousel list for each colourway of the product.
+     */
     for (String colour in widget.colourList.keys) {
       carouselList[colour] =
           List.generate(widget.colourList[colour]!.length, (index) {
@@ -139,6 +151,9 @@ class ProductPageState extends State<ProductPage> {
         memberList: carouselList[widget.colourList.keys
             .elementAt(selectedColour)]!); // initialize the carousels list
 
+    /*
+    Populating the list for the colourway options.
+     */
     fullColourList = List.generate(widget.colourList.length, (index) {
       return Stack(
         alignment: Alignment.bottomCenter,
@@ -198,6 +213,9 @@ class ProductPageState extends State<ProductPage> {
       );
     });
 
+    /*
+    If the number of colourways exceeds 8, create a special button to open a drawer with the rest of the colourway options
+     */
     if (fullColourList.length > 8) {
       previewColourList = fullColourList.sublist(0, 7);
       previewColourList.add(Container(
@@ -257,7 +275,7 @@ class ProductPageState extends State<ProductPage> {
                     ),
                     value: selectedSize != "" ? selectedSize : null,
                     decoration: InputDecoration(
-                        hintText: "Select size",
+                        hintText: widget.sizeHint,
                         hintStyle:
                             GoogleFonts.raleway(color: Colors.grey.shade400),
                         focusedErrorBorder: OutlineInputBorder(
@@ -278,7 +296,7 @@ class ProductPageState extends State<ProductPage> {
                             borderRadius: BorderRadius.circular(40))),
                     items: sizeMenuList,
                     validator: (value) =>
-                        value == null ? 'Select a size' : null,
+                        value == null ? widget.sizeHint : null,
                     elevation: 0,
                     alignment: Alignment.center,
                     dropdownColor: Colors.grey.shade300.withAlpha(200),
@@ -332,6 +350,15 @@ class ProductPageState extends State<ProductPage> {
                   color: Colors.grey.shade300,
                 ),
                 Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: Center(
+                      child: Text(widget.productName,
+                          style: GoogleFonts.raleway(
+                              color: Colors.grey.shade400,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500))),
+                ),
+                Container(
                   margin: const EdgeInsets.only(
                       top: 10, left: 8, right: 8, bottom: 10),
                   child: GestureDetector(
@@ -348,9 +375,10 @@ class ProductPageState extends State<ProductPage> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300)),
                         Center(
-                          child: Text(detailsExpanded ? "see less" : "see more",
+                          child: Text(
+                              detailsExpanded ? widget.seeLess : widget.seeMore,
                               style: GoogleFonts.raleway(
-                                  color: Colors.grey,
+                                  color: Colors.grey.shade400,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500)),
                         )
@@ -364,13 +392,3 @@ class ProductPageState extends State<ProductPage> {
     );
   }
 }
-
-/*
-Divider(
-  indent: 10,
-  endIndent: 10,
-  thickness: 2,
-  height: 2,
-  color: Colors.grey.shade300,
-), 
-*/

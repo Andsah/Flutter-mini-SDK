@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CartButton extends StatelessWidget {
-  const CartButton({super.key, required this.callback});
+  const CartButton({
+    super.key,
+    required this.callback,
+    this.text = "Add to cart",
+  });
 
   final Function callback;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +19,7 @@ class CartButton extends StatelessWidget {
         onPressed: () => callback(),
         elevation: 0,
         icon: const Icon(Icons.add_shopping_cart_rounded),
-        label: Text("Add to cart",
+        label: Text(text,
             style:
                 GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w500)),
         backgroundColor: Colors.transparent,

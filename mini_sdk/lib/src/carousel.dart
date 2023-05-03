@@ -5,10 +5,15 @@ Product page class, fulfills the design pattern found at
 -> https://ui-patterns.com/patterns/Carousel <-
  */
 class Carousel extends StatefulWidget {
-  const Carousel({super.key, required this.memberList, this.width = 390});
+  const Carousel(
+      {super.key,
+      required this.memberList,
+      this.width = 390,
+      this.dotColour = const Color.fromRGBO(189, 189, 189, 1)});
 
   final List<Widget> memberList;
   final double width;
+  final Color dotColour;
 
   @override
   State<StatefulWidget> createState() => CarouselState();
@@ -151,7 +156,7 @@ class CarouselState extends State<Carousel>
                 return Container(
                   margin: const EdgeInsets.only(top: 4, left: 4, right: 4),
                   child: CircleAvatar(
-                      backgroundColor: Colors.grey.shade400,
+                      backgroundColor: widget.dotColour,
                       radius: index == currentIndex ? 8 : 4),
                 );
               }),
