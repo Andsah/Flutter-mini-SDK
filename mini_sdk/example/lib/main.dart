@@ -45,6 +45,17 @@ class _MyHomePageState extends State<MyHomePage> {
     "5xl",
     "6xl"
   ];
+
+  Map<String, List<String>> list1 = {
+    "blue": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-19-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ],
+  };
+
   Map<String, List<String>> list2 = {
     "blue": [
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-19-700xauto.jpg",
@@ -158,7 +169,7 @@ Amigo XL är dubbelt så tjockt som Amigo, och kan därför stickas eller virkas
 Hele Amigo-serien utmärker sig genom sin lätta volym, den enhetliga strukturen och den goda hållbarheten. Det kan maskintvättas på 30°C, perfekt till vardagsbruk. Färg och form håller sig tvätt efter tvätt. Tåler du inte ull, eller vill du av andra orsaker avstå animaliska fibrer, då kan du med fördel ersätta ull med Amigo och få ett mjukt och härligt resultat.
 
 Garnet är OEKO-TEX®-certifierat (nr. 2076-311). Se mer information om certifieringen på """,
-                sizeList: testList,
+                //sizeList: testList,
                 colourList: list2,
                 callback: (id, name, quantity, colour, size) {
                   setState(() {
@@ -172,7 +183,7 @@ Garnet är OEKO-TEX®-certifierat (nr. 2076-311). Se mer information om certifie
                 accentColor: Colors.indigo,
               ),
               Container(
-                  margin: EdgeInsets.only(top: 10, bottom: 20),
+                  margin: const EdgeInsets.only(top: 10, bottom: 20),
                   child: Text(
                     "$testid, $testname, $testquantity, $testcolour, $testsize.",
                     textAlign: TextAlign.center,

@@ -61,29 +61,38 @@ class CarouselState extends State<Carousel>
             children: [
               Visibility(
                 visible: carouselController.isAnimating,
-                child: Transform.translate(
-                  offset: Offset(-widget.width - 10, 0),
-                  child: SlideTransition(
-                      position:
-                          timeToReverse ? resetAnimation : offsetAnimation,
-                      child: widget.memberList[
-                          (currentIndex - 1) % widget.memberList.length]),
+                child: SizedBox(
+                  width: widget.width,
+                  child: Transform.translate(
+                    offset: Offset(-widget.width - 10, 0),
+                    child: SlideTransition(
+                        position:
+                            timeToReverse ? resetAnimation : offsetAnimation,
+                        child: widget.memberList[
+                            (currentIndex - 1) % widget.memberList.length]),
+                  ),
                 ),
               ),
               Visibility(
                 visible: carouselController.isAnimating,
-                child: Transform.translate(
-                  offset: Offset(widget.width + 10, 0),
-                  child: SlideTransition(
-                      position:
-                          timeToReverse ? resetAnimation : offsetAnimation,
-                      child: widget.memberList[
-                          (currentIndex + 1) % widget.memberList.length]),
+                child: SizedBox(
+                  width: widget.width,
+                  child: Transform.translate(
+                    offset: Offset(widget.width + 10, 0),
+                    child: SlideTransition(
+                        position:
+                            timeToReverse ? resetAnimation : offsetAnimation,
+                        child: widget.memberList[
+                            (currentIndex + 1) % widget.memberList.length]),
+                  ),
                 ),
               ),
-              SlideTransition(
-                  position: timeToReverse ? resetAnimation : offsetAnimation,
-                  child: widget.memberList[currentIndex]),
+              SizedBox(
+                width: widget.width,
+                child: SlideTransition(
+                    position: timeToReverse ? resetAnimation : offsetAnimation,
+                    child: widget.memberList[currentIndex]),
+              ),
               Container(
                 margin: const EdgeInsets.only(left: 10, right: 10),
                 child: Row(
