@@ -9,11 +9,11 @@ class Carousel extends StatefulWidget {
       {super.key,
       required this.memberList,
       this.width = 390,
-      this.dotColour = const Color.fromRGBO(189, 189, 189, 1)});
+      this.dotColor = const Color.fromRGBO(189, 189, 189, 1)});
 
   final List<Widget> memberList;
   final double width;
-  final Color dotColour;
+  final Color dotColor;
 
   @override
   State<StatefulWidget> createState() => CarouselState();
@@ -165,7 +165,7 @@ class CarouselState extends State<Carousel>
                 return Container(
                   margin: const EdgeInsets.only(top: 4, left: 4, right: 4),
                   child: CircleAvatar(
-                      backgroundColor: widget.dotColour,
+                      backgroundColor: widget.dotColor,
                       radius: index == currentIndex ? 8 : 4),
                 );
               }),

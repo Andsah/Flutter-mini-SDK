@@ -4,11 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 
 class QuantityBar extends StatefulWidget {
   const QuantityBar(
-      {super.key, required this.callback, this.min = 0, this.max = 1000});
+      {super.key, 
+      required this.callback, 
+      this.min = 0, this.max = 1000, 
+      this.textColor = const Color(0xFFBDBDBD),
+      this.lineColor = const Color(0xFFE0E0E0),});
 
   final int min;
   final int max;
   final Function callback;
+  final Color textColor;
+  final Color lineColor;
 
   @override
   State<StatefulWidget> createState() => QuantityBarState();
@@ -42,7 +48,7 @@ class QuantityBarState extends State<QuantityBar> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade300, width: 1.5),
+          border: Border.all(color: widget.lineColor, width: 1.5),
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(40)),
       child: Row(children: [
@@ -53,7 +59,7 @@ class QuantityBarState extends State<QuantityBar> {
           style: ElevatedButton.styleFrom(
               shape: const CircleBorder(),
               padding: const EdgeInsets.all(10),
-              foregroundColor: Colors.grey.shade400,
+              foregroundColor: widget.textColor,
               shadowColor: Colors.transparent,
               backgroundColor: Colors.transparent),
           child: const Icon(Icons.add),
@@ -63,7 +69,7 @@ class QuantityBarState extends State<QuantityBar> {
           endIndent: 6,
           thickness: 1.5,
           width: 2,
-          color: Colors.grey.shade300,
+          color: widget.lineColor,
         ),
         SizedBox(
             width: 60,
@@ -74,7 +80,7 @@ class QuantityBarState extends State<QuantityBar> {
                 ),
                 style: GoogleFonts.sourceCodePro(
                     fontSize: 20,
-                    color: Colors.grey.shade400,
+                    color: widget.textColor,
                     fontWeight: FontWeight.w500),
                 controller: quantityController,
                 onChanged: (value) {
@@ -92,7 +98,7 @@ class QuantityBarState extends State<QuantityBar> {
           endIndent: 6,
           thickness: 1.5,
           width: 2,
-          color: Colors.grey.shade300,
+          color: widget.lineColor,
         ),
         ElevatedButton(
           onPressed: () {
@@ -101,7 +107,7 @@ class QuantityBarState extends State<QuantityBar> {
           style: ElevatedButton.styleFrom(
               shape: const CircleBorder(),
               padding: const EdgeInsets.all(10),
-              foregroundColor: Colors.grey.shade400,
+              foregroundColor: widget.textColor,
               shadowColor: Colors.transparent,
               backgroundColor: Colors.transparent),
           child: const Icon(Icons.remove),

@@ -20,10 +20,14 @@ class ProductPage extends StatefulWidget {
       this.sizeList = const [],
       required this.colourList,
       required this.callback,
-      this.accentColor = Colors.grey,
-      this.sizeHint = "Select size",
-      this.seeMore = "see more",
-      this.seeLess = "see less"});
+      this.selectionColor = const Color(0xFF9E9E9E),
+      this.lineColor = const Color(0xFFE0E0E0),
+      this.buttonTextColor = const Color(0xFFBDBDBD),
+      this.textColor = const Color(0xFF757575),
+      this.errorColor = const Color(0xFFF44336),
+      this.alphaColor = const Color(0xFF9E9E9E),
+      this.onAlphaColor = const Color(0xFFFFFFFF),
+      this.sizeHint = "Select size",});
 
   final double price;
   final String priceText;
@@ -31,35 +35,53 @@ class ProductPage extends StatefulWidget {
   final String productName;
   final String productDescription;
   final List<String> sizeList;
-  //final List<String> colourList;
-  final Map<String, List<String>> colourList;
-  final Function callback;
 
-  final Color accentColor;
+  /// A mapping with the colour name as key, and a list of links to images of the product as value.
+  /// 
+  /// Format:
+  /// 
+  /// {"colourName" : ["imgLink1", "imgLink2"]}
+  final Map<String, List<String>> colourList;
+
+  /// the callback function must be of the form:
+  /// 
+  /// (*productId*, *productName*, *quantity*, *selectedColour*, *selectedSize*) {
+  /// 
+  /// *function body*
+  /// 
+  /// }
+  final Function callback;
   final String sizeHint;
-  final String seeMore;
-  final String seeLess;
+
+  final Color selectionColor;
+  final Color buttonTextColor;
+  final Color lineColor;
+  final Color textColor;
+  final Color errorColor;
+  final Color alphaColor;
+  final Color onAlphaColor;
+
 
   @override
   State<StatefulWidget> createState() => ProductPageState();
 }
 
 class ProductPageState extends State<ProductPage> {
-  // We need some variables to keep track of selections on the page
   final _formKey = GlobalKey<FormState>();
 
+  // Variables to keep track of selections on the page
   String selectedSize = "";
   int selectedColour = 0;
   int quantity = 1;
   bool colourListExpanded = false;
-
   bool detailsExpanded = false;
 
+  // Lists to be used in creating widgets on the screen
   late List<Widget> fullColourList;
   late List<Widget> previewColourList;
   Map<String, List<Widget>> carouselList = {};
+  
   late Carousel productImages;
-
   late Widget sizeMenu;
   late Widget colourMenu;
 
@@ -81,6 +103,7 @@ class ProductPageState extends State<ProductPage> {
     });
   }
 
+  /// opens the list of remaining colour options in a modal bottom sheet.
   void openColourList() {
     setState(() {
       colourListExpanded = true;
@@ -118,35 +141,35 @@ class ProductPageState extends State<ProductPage> {
         child: DropdownButtonFormField(
           icon: Icon(
             Icons.expand_more_rounded,
-            color: Colors.grey.shade400,
+            color: widget.buttonTextColor,
           ),
           value: selectedSize != "" ? selectedSize : null,
           decoration: InputDecoration(
               hintText: widget.sizeHint,
-              hintStyle: GoogleFonts.raleway(color: Colors.grey.shade400),
+              hintStyle: GoogleFonts.raleway(color: widget.buttonTextColor),
               focusedErrorBorder: OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: Colors.red.shade400, width: 1.5),
+                      BorderSide(color: widget.errorColor.withAlpha(200), width: 1.5),
                   borderRadius: BorderRadius.circular(40)),
               errorBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.red, width: 1.5),
+                  borderSide: BorderSide(color: widget.errorColor, width: 1.5),
                   borderRadius: BorderRadius.circular(40)),
               focusedBorder: OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: Colors.grey.shade300, width: 1.5),
+                      BorderSide(color: widget.lineColor, width: 1.5),
                   borderRadius: BorderRadius.circular(40)),
               enabledBorder: OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: Colors.grey.shade300, width: 1.5),
+                      BorderSide(color: widget.lineColor, width: 1.5),
                   borderRadius: BorderRadius.circular(40))),
           items: sizeMenuList,
           validator: (value) => value == null ? widget.sizeHint : null,
           elevation: 0,
           alignment: Alignment.center,
-          dropdownColor: Colors.grey.shade300.withAlpha(200),
+          dropdownColor: widget.lineColor.withAlpha(200),
           borderRadius: BorderRadius.circular(40),
           style: GoogleFonts.raleway(
-              color: Colors.grey.shade400,
+              color: widget.buttonTextColor,
               fontSize: 16,
               fontWeight: FontWeight.w500),
           onChanged: (value) {
@@ -171,6 +194,7 @@ class ProductPageState extends State<ProductPage> {
       populateColourlist();
       productImages = Carousel(
           key: Key(selectedColour.toString()),
+          dotColor: widget.buttonTextColor,
           memberList: carouselList[widget.colourList.keys
               .elementAt(selectedColour)]!); // initialize the carousels list
 
@@ -184,7 +208,7 @@ class ProductPageState extends State<ProductPage> {
               borderRadius: BorderRadius.circular(15),
               image: DecorationImage(
                   colorFilter: ColorFilter.mode(
-                      Colors.grey.withAlpha(200), BlendMode.multiply),
+                      widget.alphaColor.withAlpha(200), BlendMode.multiply),
                   fit: BoxFit.fitWidth,
                   image: NetworkImage(widget.colourList.values.elementAt(7)[0],
                       scale: 1))),
@@ -196,7 +220,7 @@ class ProductPageState extends State<ProductPage> {
               Icons.add,
               size: 35,
             ),
-            color: Colors.white,
+            color: widget.onAlphaColor,
           ),
         ));
       }
@@ -216,6 +240,7 @@ class ProductPageState extends State<ProductPage> {
     } else if (widget.colourList.isNotEmpty) {
       // if only one colourway exists, no use in a colour menu
       productImages = Carousel(
+        dotColor: widget.buttonTextColor,
           memberList:
               List.generate(widget.colourList.values.single.length, (index) {
         return Container(
@@ -248,23 +273,23 @@ class ProductPageState extends State<ProductPage> {
                           top: 2, bottom: 2, right: 12, left: 10),
                       child: Text(
                         widget
-                            .priceText, // let user set formatting options like currency sign etc.
+                            .priceText,
                         style: GoogleFonts.sourceCodePro(
-                            color: Colors.grey.shade400, fontSize: 22),
+                            color: widget.buttonTextColor, fontSize: 22),
                       ),
                     ),
                     const SizedBox()
                   ],
                 ),
-                sizeMenu, // also make optional
+                sizeMenu,
                 Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 10),
                   child: IntrinsicHeight(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        QuantityBar(callback: quantityCallback),
-                        CartButton(callback: cartCallback)
+                        QuantityBar(callback: quantityCallback, lineColor: widget.lineColor, textColor: widget.buttonTextColor),
+                        CartButton(callback: cartCallback, lineColor: widget.lineColor, textColor: widget.buttonTextColor)
                       ],
                     ),
                   ),
@@ -276,7 +301,7 @@ class ProductPageState extends State<ProductPage> {
                         endIndent: 10,
                         thickness: 2,
                         height: 2,
-                        color: Colors.grey.shade300,
+                        color: widget.lineColor,
                       )
                     : const SizedBox(),
                 Container(
@@ -284,7 +309,7 @@ class ProductPageState extends State<ProductPage> {
                   child: Center(
                       child: Text(widget.productName,
                           style: GoogleFonts.raleway(
-                              color: Colors.grey.shade400,
+                              color: widget.buttonTextColor,
                               fontSize: 22,
                               fontWeight: FontWeight.w500))),
                 ),
@@ -301,16 +326,11 @@ class ProductPageState extends State<ProductPage> {
                             overflow: TextOverflow.fade,
                             maxLines: detailsExpanded ? 100 : 4,
                             style: GoogleFonts.raleway(
-                                color: Colors.grey.shade600,
+                                color: widget.textColor,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400)),
                         Center(
-                          child: Text(
-                              detailsExpanded ? widget.seeLess : widget.seeMore,
-                              style: GoogleFonts.raleway(
-                                  color: Colors.grey.shade400,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500)),
+                          child: CircleAvatar(backgroundColor: widget.buttonTextColor, foregroundColor: widget.onAlphaColor ,child: Icon(detailsExpanded? Icons.expand_less_rounded: Icons.expand_more_rounded))
                         )
                       ],
                     ),
@@ -334,8 +354,8 @@ class ProductPageState extends State<ProductPage> {
             decoration: BoxDecoration(
                 border: Border.all(
                     color: selectedColour == index
-                        ? widget.accentColor
-                        : Colors.grey.shade300,
+                        ? widget.selectionColor
+                        : widget.lineColor,
                     width: selectedColour == index ? 1.5 : 1),
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
@@ -349,7 +369,7 @@ class ProductPageState extends State<ProductPage> {
               color: Colors.transparent,
               child: InkWell(
                   borderRadius: BorderRadius.circular(15),
-                  splashColor: Colors.grey.withAlpha(128),
+                  splashColor: widget.alphaColor.withAlpha(128),
                   onTap: () {
                     if (colourListExpanded) {
                       closeColourList();
@@ -358,6 +378,7 @@ class ProductPageState extends State<ProductPage> {
                       selectedColour = index;
                       productImages = Carousel(
                           key: Key(index.toString()),
+                          dotColor: widget.buttonTextColor,
                           memberList: carouselList[
                               widget.colourList.keys.elementAt(index)]!);
                     });
@@ -373,12 +394,12 @@ class ProductPageState extends State<ProductPage> {
                     bottomRight: Radius.circular(15)),
                 backgroundBlendMode: BlendMode.multiply,
                 color: selectedColour == index
-                    ? widget.accentColor.withAlpha(200)
-                    : Colors.grey.withAlpha(200)),
+                    ? widget.selectionColor.withAlpha(200)
+                    : widget.alphaColor.withAlpha(200)),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 2.0),
               child: Text(widget.colourList.keys.elementAt(index),
-                  style: GoogleFonts.raleway(color: Colors.white)),
+                  style: GoogleFonts.raleway(color: widget.onAlphaColor)),
             ),
           ),
         ],

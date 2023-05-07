@@ -5,11 +5,15 @@ class CartButton extends StatelessWidget {
   const CartButton({
     super.key,
     required this.callback,
+    this.textColor = const Color(0xFFBDBDBD),
+    this.lineColor = const Color(0xFFE0E0E0),
     this.text = "Add to cart",
   });
 
   final Function callback;
   final String text;
+  final Color textColor;
+  final Color lineColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +27,11 @@ class CartButton extends StatelessWidget {
             style:
                 GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w500)),
         backgroundColor: Colors.transparent,
-        foregroundColor: Colors.grey.shade400,
-        splashColor: Colors.grey.shade300,
+        foregroundColor: textColor,
+        splashColor: lineColor,
         highlightElevation: 0,
         shape: RoundedRectangleBorder(
-            side: BorderSide(width: 1.5, color: Colors.grey.shade300),
+            side: BorderSide(width: 1.5, color: lineColor),
             borderRadius: BorderRadius.circular(40)),
       ),
     );
