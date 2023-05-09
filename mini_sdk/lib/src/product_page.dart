@@ -45,11 +45,12 @@ class ProductPage extends StatefulWidget {
 
   /// the callback function must be of the form:
   /// 
-  /// (*productId*, *productName*, *quantity*, *selectedColour*, *selectedSize*) {
+  /// (*productId*, *productName*, *quantity*, *selectedColour*, *selectedSize*)
   /// 
-  /// *function body*
+  /// (*productId*, *productName*, *quantity*, *selectedColour*) if sizeList is left empty
   /// 
-  /// }
+  /// The function is expected to return void.
+  /// 
   final Function callback;
   final String sizeHint;
 
@@ -85,17 +86,32 @@ class ProductPageState extends State<ProductPage> {
   late Widget sizeMenu;
   late Widget colourMenu;
 
+  late TextPainter tp;
+  late bool textOverflowed;
+
+  @override
+  void initState() {
+    super.initState();
+    tp = TextPainter(text: TextSpan(text: widget.productDescription), maxLines: detailsExpanded ? 100 : 4, textDirection: TextDirection.ltr);
+  }
+
   void quantityCallback(int q) {
     quantity = q;
   }
 
+  /// calls the provided callback function with the customers selections as parameters
   void cartCallback() {
     if (_formKey.currentState!.validate()) {
+      if (widget.sizeList.isNotEmpty) {
       widget.callback(widget.productId, widget.productName, quantity,
-          widget.colourList.keys.elementAt(selectedColour), selectedSize);
+          widget.colourList.keys.elementAt(selectedColour), selectedSize);}
+      else {
+        widget.callback(widget.productId, widget.productName, quantity,
+          widget.colourList.keys.elementAt(selectedColour));
+      }
     }
   }
-
+  /// closes the modal bottom sheet displaying the remaining colour options.
   void closeColourList() {
     setState(() {
       colourListExpanded = false;
@@ -132,6 +148,9 @@ class ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    tp.layout(maxWidth: double.maxFinite);
+    textOverflowed = tp.didExceedMaxLines;
+
     if (widget.sizeList.isNotEmpty) {
       List<DropdownMenuItem> sizeMenuList = [];
       populateSizelist(sizeMenuList, context);
@@ -202,8 +221,8 @@ class ProductPageState extends State<ProductPage> {
     If the number of colourways exceeds 8, create a special button to open a drawer with the rest of the colourway options
      */
       if (fullColourList.length > 8) {
-        previewColourList = fullColourList.sublist(0, 7);
-        previewColourList.add(Container(
+        previewColourList = fullColourList.sublist(0, 7); // the preview uses the first 7 colours in the list
+        previewColourList.add(Container( // adds an 8th element that is the button to open the modal bottom sheet
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               image: DecorationImage(
@@ -227,7 +246,7 @@ class ProductPageState extends State<ProductPage> {
       colourMenu = Container(
           margin:
               const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 16),
-          child: GridView.count(
+          child: GridView.count( // gridview controlls the layout of the colour menu
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 4,
@@ -281,7 +300,7 @@ class ProductPageState extends State<ProductPage> {
                     const SizedBox()
                   ],
                 ),
-                sizeMenu,
+                sizeMenu, // The sizing options for the product (optional)
                 Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 10),
                   child: IntrinsicHeight(
@@ -294,7 +313,7 @@ class ProductPageState extends State<ProductPage> {
                     ),
                   ),
                 ),
-                colourMenu,
+                colourMenu, // The colour options for the product (optional)
                 widget.colourList.length > 1
                     ? Divider(
                         indent: 10,
@@ -323,20 +342,30 @@ class ProductPageState extends State<ProductPage> {
                     child: Wrap(
                       children: [
                         Text(widget.productDescription,
-                            overflow: TextOverflow.fade,
+                            overflow: TextOverflow.clip,
                             maxLines: detailsExpanded ? 100 : 4,
                             style: GoogleFonts.raleway(
                                 color: widget.textColor,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400)),
-                        Center(
-                          child: CircleAvatar(backgroundColor: widget.buttonTextColor, foregroundColor: widget.onAlphaColor ,child: Icon(detailsExpanded? Icons.expand_less_rounded: Icons.expand_more_rounded))
-                        )
+                          textOverflowed ? Center(
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 5),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: widget.lineColor, width: 1.5),
+                            borderRadius: BorderRadius.circular(35)),
+                          child: Icon(detailsExpanded? Icons.expand_less_rounded: Icons.expand_more_rounded, 
+                          color: widget.buttonTextColor, 
+                          size: 35)
+                          )
+                        ) : const SizedBox()
                       ],
                     ),
                   ),
                 )
-              ])),
+              ]
+            )
+          ),
         ],
       ),
     );

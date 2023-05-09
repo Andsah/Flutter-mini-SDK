@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 List<String> testList = [
     "xs",
     "s",
@@ -33,32 +35,22 @@ The yarn is OEKO-TEX® certified (no. 2076-311). Find more information about the
 
   Map<String, List<String>> list2 = {
     "blue": [
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-19-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-19-700xauto.jpg"
     ],
     "green": [
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-03-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg"
     ],
     "beige": [
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-07-700xauto.jpg",
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg"
     ],
     "black": [
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-09-700xauto.jpg",
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
-      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
     ],
     "red": [
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-27-700xauto.jpg",
@@ -187,3 +179,143 @@ The yarn is OEKO-TEX® certified (no. 2076-311). Find more information about the
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
     ]
   };
+
+  Map<String, List<String>> list3 = {
+    
+    "beige": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-07-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg"
+    ],
+    "black": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-09-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+    ],
+    "red": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-27-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ],
+    "flax": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-28-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ],
+    "maroon": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-41-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ],
+    "094": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-38-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ],
+    "092": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-40-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ],
+    "107": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-60-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ]
+  };
+
+  Map<String, List<String>> list4 = {
+    
+    "beige": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-07-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg"
+    ],
+    "black": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-09-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+    ],
+    "red": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-27-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ],
+    "flax": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-28-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ],
+    "maroon": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-41-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ]
+  };
+
+  Map<String, List<String>> list5 = {
+    
+    "beige": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-07-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg"
+    ],
+    "black": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2022/2/hobbii-amigo-xl-09-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+    ],
+    "red": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-27-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ],
+    "flax": [
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-28-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-januarudsalg-1-1-picture-sylwia-winter-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/amigoxl-1-1-picture-sylwia-springflowers-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/9/ami-xl-pu-10-700xauto.jpg",
+      "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2021/2/1614238006-amigo-700xauto.jpg"
+    ]
+  };
+
+List<Text> textList = [
+    const Text("Hejsan", textAlign: TextAlign.center),
+    const Text("Vill", textAlign: TextAlign.center),
+    const Text("Du", textAlign: TextAlign.center),
+    const Text("Åka", textAlign: TextAlign.center),
+    const Text("På", textAlign: TextAlign.center),
+    const Text("En", textAlign: TextAlign.center),
+    const Text("Karosell", textAlign: TextAlign.center)];
+
+List<Widget> widgetList = [Container(color: Colors.red, height: 300, width: 300),
+    Container(color: Colors.yellow, height: 300, width: 100),
+    Container(color: Colors.blue, height: 500, width: 200),
+    Container(color: Colors.purple, height: 100, width: 700),
+    Container(color: Colors.green, height: 200, width: 200),
+    Container(color: Colors.pink, height: 600, width: 50),
+    Container(color: Colors.black, height: 400, width: 400),
+    Container(color: Colors.grey.shade100, height: 400, width: 100),];

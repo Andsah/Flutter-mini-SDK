@@ -10,6 +10,7 @@ class CartButton extends StatelessWidget {
     this.text = "Add to cart",
   });
 
+  /// the function to call when pressing the button, takes no arguments and returns void.
   final Function callback;
   final String text;
   final Color textColor;

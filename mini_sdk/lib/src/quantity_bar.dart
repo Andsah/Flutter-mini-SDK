@@ -12,6 +12,7 @@ class QuantityBar extends StatefulWidget {
 
   final int min;
   final int max;
+  /// a callback function that takes an int quantity and returns void.
   final Function callback;
   final Color textColor;
   final Color lineColor;
