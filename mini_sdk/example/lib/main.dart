@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   priceText: "\$19.99",
                   productId: "ag2FGt390Fk4",
                   productName: "Hobbii Amigo XL",
-                  productDescription: productDescription,
+                  productDescription: shortDescription,
                   colourList: list1,
                   callback: (id, name, quantity, colour) {
                     setState(() {
@@ -178,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   priceText: "\$19.99",
                   productId: "ag2FGt390Fk4",
                   productName: "Hobbii Amigo XL",
-                  productDescription: productDescription,
+                  productDescription: shortDescription,
                   sizeList: testList,
                   colourList: list2,
                   callback: (id, name, quantity, colour, size) {
@@ -252,7 +252,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   priceText: "\$19.99",
                   productId: "ag2FGt390Fk4",
                   productName: "Hobbii Amigo XL",
-                  productDescription: productDescription,
+                  productDescription: shortDescription,
                   sizeList: testList,
                   colourList: list4,
                   callback: (id, name, quantity, colour, size) {

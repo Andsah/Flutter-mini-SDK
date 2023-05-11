@@ -23,6 +23,9 @@ The entire Amigo series is distinguished by its light volume, uniform structure 
 
 The yarn is OEKO-TEX® certified (no. 2076-311). Find more information about the certification on the https://www.oeko-tex.com/en/ """;
 
+
+ String shortDescription = """Amigo XL is one of those wonderful types of yarn that is so easy to work with that it flies over the needle or hook. It can be machine washed at 30°C. The yarn is OEKO-TEX® certified (no. 2076-311).""";
+
   Map<String, List<String>> list1 = {
     "blue": [
       "https://d2tk9av7ph0ga6.cloudfront.net/image/catalog/2020/10/hobbii-amigo-xl-19-700xauto.jpg",

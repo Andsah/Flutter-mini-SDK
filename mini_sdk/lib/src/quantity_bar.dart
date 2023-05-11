@@ -10,7 +10,9 @@ class QuantityBar extends StatefulWidget {
       this.textColor = const Color(0xFFBDBDBD),
       this.lineColor = const Color(0xFFE0E0E0),});
 
+  /// the exclusive min and max. If you want the range to be 1-100 for example, set min and max to 0 and 101 respectively
   final int min;
+  /// the exclusive min and max. If you want the range to be 1-100 for example, set min and max to 0 and 101 respectively
   final int max;
   /// a callback function that takes an int quantity and returns void.
   final Function callback;
@@ -53,6 +55,7 @@ class QuantityBarState extends State<QuantityBar> {
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(40)),
       child: Row(children: [
+        // Addition button
         ElevatedButton(
           onPressed: () {
             setQuantity(quantity + 1);
@@ -72,6 +75,7 @@ class QuantityBarState extends State<QuantityBar> {
           width: 2,
           color: widget.lineColor,
         ),
+        // The display for the quantity, only numbers allowed
         SizedBox(
             width: 60,
             child: TextFormField(
@@ -101,6 +105,8 @@ class QuantityBarState extends State<QuantityBar> {
           width: 2,
           color: widget.lineColor,
         ),
+
+        // Subtraction button
         ElevatedButton(
           onPressed: () {
             setQuantity(quantity - 1);

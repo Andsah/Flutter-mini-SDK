@@ -40,11 +40,13 @@ class CarouselState extends State<Carousel>
 
   bool timeToReverse = false;
 
+  // animation for clicking the right arrow button
   late final Animation<Offset> offsetAnimation =
       Tween<Offset>(begin: Offset.zero, end: Offset(offsetValue, 0)).animate(
           CurvedAnimation(
               parent: carouselController, curve: Curves.fastOutSlowIn));
 
+  // animation for clicking the left arrow button
   late final Animation<Offset> resetAnimation =
       Tween<Offset>(begin: Offset.zero, end: Offset(-offsetValue, 0)).animate(
           CurvedAnimation(
@@ -111,7 +113,7 @@ class CarouselState extends State<Carousel>
                 child: widget.memberList.length > 1 ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // left arrow
+                    // left arrow button
                     GestureDetector(
                       onTap: () {
                         // play animation forward, then update current index then blink back to original position seamlessly
@@ -142,7 +144,7 @@ class CarouselState extends State<Carousel>
                       ),
                     ),
 
-                    // right arrow
+                    // right arrow button
                     GestureDetector(
                       onTap: () {
                         // play animation forward, then update current index then blink back to original position seamlessly
